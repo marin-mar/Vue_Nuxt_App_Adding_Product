@@ -62,7 +62,9 @@
       />
       <span class="app-form__warning">Поле является обязательным</span>
     </div>
-    <button type="submit" class="add-form__button">Добавить товар</button>
+    <button type="submit" class="add-form__button disabled">
+      Добавить товар
+    </button>
   </form>
 </template>
 
@@ -92,16 +94,16 @@ export default {
     },
     onSubmit() {
       // if (this.checkForm()) {
-        //     const newUser = {
-        //       id: this.users.length + 1,
-        //       first_name: this.first_name,
-        //       last_name: this.first_name,
-        //       email: this.email,
-        //     }
-        //     this.$emit('addUser', newUser)
-        //     this.first_name = ''
-        //     this.last_name = ''
-        //     this.email = ''
+      //     const newUser = {
+      //       id: this.users.length + 1,
+      //       first_name: this.first_name,
+      //       last_name: this.first_name,
+      //       email: this.email,
+      //     }
+      //     this.$emit('addUser', newUser)
+      //     this.first_name = ''
+      //     this.last_name = ''
+      //     this.email = ''
       // }
     },
   },
@@ -208,15 +210,23 @@ export default {
     line-height: 0.9375rem;
     text-align: center;
     letter-spacing: -0.02em;
-    color: $disabled_color;
-    background-color: $disabled_bg;
     border: transparent;
     border-radius: 10px;
     transition: all 0.3s;
-    &:hover,
-    &:active,
-    &:focus {
-      transform: scale(0.9);
+    &.success {
+      color: $success_color;
+      background-color: $success_bg;
+      cursor: pointer;
+      &:hover,
+      &:active,
+      &:focus {
+        transform: scale(0.9);
+      }
+    }
+    &.disabled {
+      color: $disabled_color;
+      background-color: $disabled_bg;
+      cursor: default;
     }
   }
 }

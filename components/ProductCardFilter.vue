@@ -41,9 +41,19 @@ export default {
   box-shadow: $input_shadow;
   border: transparent;
   border-radius: 4px;
+  appearance: none;
+  background-image: url('~/assets/img/filterArrow.svg');
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: 4.59px;
+  background-position-x: calc(100% - 1rem);
+  transition: all 0.3s;
+  position: relative;
+  cursor: pointer;
   &__option {
     padding: 0.625rem 1rem;
     color: $app_color;
+    cursor: pointer;
   }
 }
 </style>
