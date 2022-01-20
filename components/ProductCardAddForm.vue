@@ -14,19 +14,21 @@
       >
       <input
         id="title"
-        v-model="title"
+        v-model.trim="card.title"
         type="text"
         name="title"
-        class="add-form__input valid"
+        :class="['add-form__input', { invalid: errors.includes('title') }]"
         placeholder="Введите наименование товара"
       />
-      <span v-if="errors.includes('title')" class="add-form__warning" >Поле является обязательным</span>
+      <span v-if="errors.includes('title')" class="add-form__warning"
+        >Поле является обязательным</span
+      >
     </div>
     <div class="add-form__block">
       <label for="description" class="add-form__label">Описание товара</label>
       <textarea
         id="description"
-        v-model="description"
+        v-model.trim="card.description"
         name="description"
         class="add-form__textarea"
         rows="7"
@@ -39,34 +41,39 @@
       >
       <input
         id="link"
-        v-model="link"
+        v-model.trim="card.link"
         type="url"
         name="link"
-        class="add-form__input valid"
+        :class="['add-form__input', { invalid: errors.includes('link') }]"
         placeholder="Введите ссылку"
       />
-      <span v-if="errors.includes('link')" class="add-form__warning" >Поле является обязательным</span>
+      <span v-if="errors.includes('link')" class="add-form__warning"
+        >Поле является обязательным</span
+      >
     </div>
     <div class="add-form__block">
       <label for="price" class="add-form__label required">Цена товара</label>
       <input
         id="price"
-        v-model="price"
+        v-model.number="card.price"
         type="number"
         name="price"
-        class="add-form__input valid"
+        :class="['add-form__input', { invalid: errors.includes('price') }]"
         placeholder="Введите цену"
       />
-      <span v-if="errors.includes('price')" class="add-form__warning" >Поле является обязательным</span>
+      <span v-if="errors.includes('price')" class="add-form__warning"
+        >Поле является обязательным</span
+      >
     </div>
-    <button type="submit" class="add-form__button disabled">
+    <button
+      type="submit"
+      :class="['add-form__button', { success: checkIsEmptyCard() }]"
+    >
       Добавить товар
     </button>
     <p v-if="errors.length">
-      <b>Пожалуйста исправьте указанные ошибки:</b>
-      <ul>
-        <li v-for="error in errors" :key="error">{{ error }}</li>
-      </ul>
+      <b>Пожалуйста исправьте указанные ошибки</b>
+      <b>{{checkIsEmptyCard()}}</b>
     </p>
   </form>
 </template>
@@ -76,37 +83,39 @@ export default {
   name: 'ProductCardAddForm',
   data() {
     return {
-      card: {},
+      card: {
+        title: '',
+        description: '',
+        link: '',
+        price: '',
+      },
       errors: [],
-      title: '',
-      description: '',
-      link: '',
-      price: '',
     }
   },
-  watch: {
-
-  },
+  watch: {},
   methods: {
     checkForm(e) {
       e.preventDefault()
       this.errors = []
-      if (this.title && this.link && this.price) {
+      if (this.card.title && this.card.link && this.card.price) {
         return true
       }
-      if (!this.title.trim()) {
-        document.getElementById('title').classList.add('invalid');
-        this.errors.push('title');
+      if (!this.card.title) {
+        this.errors.push('title')
       }
-      if (!this.link.trim()) {
-        document.getElementById('link').classList.add('invalid');
-        this.errors.push('link');
+      if (!this.card.link) {
+        this.errors.push('link')
       }
-      if (!this.price.trim()) {
-        document.getElementById('price').classList.add('invalid');
-        this.errors.push('price');
+      if (!this.card.price) {
+        this.errors.push('price')
       }
       return this.errors
+    },
+    checkIsEmptyCard() {
+      for (const key in this.card) {
+        if (this.card[key] === null && this.card[key] === '') return true
+      }
+      return false
     },
     onSubmit() {
       // if (this.checkForm()) {
@@ -183,22 +192,7 @@ export default {
     }
     &.invalid {
       border: 1px solid $accent_color;
-      /* & + .add-form__warning {
-        visibility: visible;
-        margin-top: 0.25rem;
-        font-family: Source Sans Pro;
-        font-style: normal;
-        font-weight: 400;
-        font-size: 0.5rem;
-        line-height: 0.625rem;
-        letter-spacing: -0.02em;
-        color: $accent_color;
-        transition: all 0.3s;
-      } */
     }
-    /* &.valid + .add-form__warning {
-      visibility: hidden;
-    } */
   }
   &__textarea {
     height: 6.75rem;
@@ -229,6 +223,9 @@ export default {
     border: transparent;
     border-radius: 10px;
     transition: all 0.3s;
+    color: $disabled_color;
+    background-color: $disabled_bg;
+    cursor: default;
     &.success {
       color: $success_color;
       background-color: $success_bg;
@@ -238,11 +235,6 @@ export default {
       &:focus {
         transform: scale(0.9);
       }
-    }
-    &.disabled {
-      color: $disabled_color;
-      background-color: $disabled_bg;
-      cursor: default;
     }
   }
 }

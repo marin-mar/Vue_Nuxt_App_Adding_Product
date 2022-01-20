@@ -42,7 +42,7 @@ export default {
     link: {
       type: String,
       // required: true,
-      default: '/_nuxt/assets/img/productCardImg.png',
+      default: `${require('~/assets/img/productCardImg.png')}`,
     },
     price: {
       type: String,

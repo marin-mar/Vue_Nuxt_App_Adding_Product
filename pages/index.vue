@@ -46,6 +46,7 @@ export default {
   &__filter {
     grid-area: filter;
     display: flex;
+    flex-direction: column;
     align-items: flex-end;
   }
   &__form {
