@@ -2,7 +2,7 @@ body {
   font-family: 'Source Sans Pro', sans-serif;
   // font-family: 'Inter', sans-serif;
   color: $app_color;
-  background-color: $app_bg;
+  background-color: transparentize($app_bg, 0.2);
 }
 
 * {

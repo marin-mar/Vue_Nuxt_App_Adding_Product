@@ -1,19 +1,16 @@
 <template>
-  <div class="card">
-    <img
-      class="card__img"
-      src="~/assets/img/productCardImg.png"
-      alt="ProductCardImg"
-    />
+  <div class="card" tabindex="0">
+    <img class="card__img" :src="`${link}`" alt="ProductCardImg" />
     <div class="card__body">
-      <h3 class="card__title">Наименование товара</h3>
+      <h3 class="card__title">{{ title }}</h3>
       <p class="card__description">
-        Довольно-таки интересное описание товара в несколько строк.
-        Довольно-таки интересное описание товара в несколько строк
+        {{ description }}
       </p>
-      <p class="card__price"><span class="card__sum">10 000</span> руб.</p>
+      <p class="card__price">
+        <span class="card__sum">{{ price }}</span> руб.
+      </p>
     </div>
-    <button class="card__delete">
+    <button class="card__delete" :tabindex="2">
       <img
         class="card__delete-img"
         src="~/assets/img/deleteImg.svg"
@@ -26,24 +23,55 @@
 <script>
 export default {
   name: 'ProductCard',
+  props: {
+    // card: {
+    //   type: Object,
+    //   required: true,
+    // },
+    title: {
+      type: String,
+      // required: true,
+      default: 'Наименование товара',
+    },
+    description: {
+      type: String,
+      // required: true,
+      default:
+        'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
+    },
+    link: {
+      type: String,
+      // required: true,
+      default: '/_nuxt/assets/img/productCardImg.png',
+    },
+    price: {
+      type: String,
+      // required: true,
+      default: '10 000',
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 .card {
   width: 20.75rem;
-  height: 26.4375rem;
+  min-height: 26.4375rem;
   color: $app_color;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 1rem;
-  background-color: $card_bg;
-  box-shadow: $card_shadow;
+  background-color: $app_bg;
+  box-shadow: $app_shadow;
   border-radius: 4px;
   cursor: pointer;
   position: relative;
-  &:hover {
+  transition: all 0.3s;
+  &:hover,
+  &:active,
+  &:focus {
+    transform: translateY(-0.5rem);
     .card__delete {
       visibility: visible;
     }
@@ -83,13 +111,11 @@ export default {
     margin-top: 1rem;
     margin-bottom: 0.5rem;
   }
-  &__sum {
-  }
   &__delete {
     width: 2rem;
     height: 2rem;
-    background-color: $card_delete_color;
-    box-shadow: $card_delete_shadow;
+    background-color: $accent_color;
+    box-shadow: $delete_shadow;
     border: none;
     border-radius: 10px;
     cursor: pointer;
@@ -98,7 +124,9 @@ export default {
     right: -0.5rem;
     visibility: hidden;
     transition: all 0.3s;
-    &:hover {
+    &:hover,
+    &:active,
+    &:focus {
       transform: scale(0.9);
     }
   }
