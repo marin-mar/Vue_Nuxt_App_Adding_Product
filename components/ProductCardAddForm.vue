@@ -19,9 +19,8 @@
         name="title"
         class="add-form__input valid"
         placeholder="Введите наименование товара"
-        required
       />
-      <span class="app-form__warning">Поле является обязательным</span>
+      <span v-if="errors.includes('title')" class="add-form__warning" >Поле является обязательным</span>
     </div>
     <div class="add-form__block">
       <label for="description" class="add-form__label">Описание товара</label>
@@ -45,9 +44,8 @@
         name="link"
         class="add-form__input valid"
         placeholder="Введите ссылку"
-        required
       />
-      <span class="app-form__warning">Поле является обязательным</span>
+      <span v-if="errors.includes('link')" class="add-form__warning" >Поле является обязательным</span>
     </div>
     <div class="add-form__block">
       <label for="price" class="add-form__label required">Цена товара</label>
@@ -58,13 +56,18 @@
         name="price"
         class="add-form__input valid"
         placeholder="Введите цену"
-        required
       />
-      <span class="app-form__warning">Поле является обязательным</span>
+      <span v-if="errors.includes('price')" class="add-form__warning" >Поле является обязательным</span>
     </div>
     <button type="submit" class="add-form__button disabled">
       Добавить товар
     </button>
+    <p v-if="errors.length">
+      <b>Пожалуйста исправьте указанные ошибки:</b>
+      <ul>
+        <li v-for="error in errors" :key="error">{{ error }}</li>
+      </ul>
+    </p>
   </form>
 </template>
 
@@ -81,14 +84,27 @@ export default {
       price: '',
     }
   },
+  watch: {
+
+  },
   methods: {
     checkForm(e) {
       e.preventDefault()
       this.errors = []
-      if (this.title.trim() && this.link.trim() && this.price.trim()) {
+      if (this.title && this.link && this.price) {
         return true
-      } else {
-        this.errors.push('Поле является обязательным')
+      }
+      if (!this.title.trim()) {
+        document.getElementById('title').classList.add('invalid');
+        this.errors.push('title');
+      }
+      if (!this.link.trim()) {
+        document.getElementById('link').classList.add('invalid');
+        this.errors.push('link');
+      }
+      if (!this.price.trim()) {
+        document.getElementById('price').classList.add('invalid');
+        this.errors.push('price');
       }
       return this.errors
     },
@@ -167,7 +183,7 @@ export default {
     }
     &.invalid {
       border: 1px solid $accent_color;
-      & + .app-form__warning {
+      /* & + .add-form__warning {
         visibility: visible;
         margin-top: 0.25rem;
         font-family: Source Sans Pro;
@@ -178,17 +194,17 @@ export default {
         letter-spacing: -0.02em;
         color: $accent_color;
         transition: all 0.3s;
-      }
+      } */
     }
-    &.valid + .app-form__warning {
+    /* &.valid + .add-form__warning {
       visibility: hidden;
-    }
+    } */
   }
   &__textarea {
     height: 6.75rem;
   }
   &__warning {
-    visibility: hidden;
+    visibility: visible;
     margin-top: 0.25rem;
     font-family: Source Sans Pro;
     font-style: normal;

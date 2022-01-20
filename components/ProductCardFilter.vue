@@ -1,10 +1,4 @@
 <template>
-  <!-- <ul class="filter">
-    <li class="filter__option" data-option='all'>По умолчанию</li>
-    <li class="filter__option" data-option='min'>По цене min (от min к max)</li>
-    <li class="filter__option" data-option='max'>По цене max (от max к min)</li>
-    <li class="filter__option" data-option='title'>По наименованию</li>
-  </ul> -->
   <select id="filter" v-model="selected" name="filter" class="filter">
     <option class="filter__option" value="all" selected>По умолчанию</option>
     <option class="filter__option" value="min">По цене от min к max</option>
