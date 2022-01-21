@@ -1,13 +1,13 @@
 <template>
   <div class="card" tabindex="0">
-    <img class="card__img" :src="`${link}`" alt="ProductCardImg" />
+    <img class="card__img" :src="`${card.link}`" alt="ProductCardImg" />
     <div class="card__body">
-      <h3 class="card__title">{{ title }}</h3>
+      <h3 class="card__title">{{ card.title }}</h3>
       <p class="card__description">
-        {{ description }}
+        {{ card.description }}
       </p>
       <p class="card__price">
-        <span class="card__sum">{{ price }}</span> руб.
+        <span class="card__sum">{{ card.price }}</span> руб.
       </p>
     </div>
     <button class="card__delete" :tabindex="2">
@@ -24,30 +24,10 @@
 export default {
   name: 'ProductCard',
   props: {
-    // card: {
-    //   type: Object,
-    //   required: true,
-    // },
-    title: {
-      type: String,
+    card: {
+      type: Object,
       // required: true,
-      default: 'Наименование товара',
-    },
-    description: {
-      type: String,
-      // required: true,
-      default:
-        'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
-    },
-    link: {
-      type: String,
-      // required: true,
-      default: `${require('~/assets/img/productCardImg.png')}`,
-    },
-    price: {
-      type: String,
-      // required: true,
-      default: '10 000',
+      default: () => {},
     },
   },
 };

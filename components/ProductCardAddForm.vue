@@ -139,19 +139,18 @@ export default {
       return state;
     },
     onSubmit() {
-      // const newCard = {
-      //   id: this.card.length + 1,
-      //   title: this.card.title,
-      //   description: this.card.description,
-      //   link: this.card.link,
-      //   price: this.card.price,
-      // },
-      // this.$emit('addCard', newCard),
-      // this.card = {},
-      // this.card.title = '',
-      // this.card.description = '',
-      // this.card.link = '',
-      // this.card.price = '',
+      const newCard = {
+        id: Date.now(),
+        title: this.card.title,
+        description: this.card.description,
+        link: this.card.link,
+        price: this.card.price,
+      };
+      this.$emit('addNewCard', newCard);
+      this.card.title = '';
+      this.card.description = '';
+      this.card.link = '';
+      this.card.price = '';
     },
   },
 };

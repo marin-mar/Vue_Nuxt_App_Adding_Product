@@ -1,13 +1,7 @@
 <template>
   <ul class="card-list">
-    <li class="card-list__item">
-      <product-card />
-    </li>
-    <li class="card-list__item">
-      <product-card />
-    </li>
-    <li class="card-list__item">
-      <product-card />
+    <li v-for="card in cards" :key="card.id" class="card-list__item">
+      <product-card :card="card"/>
     </li>
   </ul>
 </template>
@@ -18,6 +12,13 @@ export default {
   name: 'ProductCardList',
   components: {
     'product-card': ProductCardVue,
+  },
+  props: {
+    cards: {
+      type: Array,
+      // required: true,
+      default: () => [],
+    },
   },
 };
 </script>

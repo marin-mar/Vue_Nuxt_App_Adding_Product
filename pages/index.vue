@@ -7,18 +7,18 @@
       <product-card-filter />
     </div>
     <div class="app__form">
-      <product-card-add-form />
+      <product-card-add-form @addNewCard='addNewCard'/>
     </div>
     <div class="app__list">
-      <product-card-list />
+      <product-card-list :cards="cards" />
     </div>
   </div>
 </template>
 
 <script>
-import ProductCardVue from '~/components/ProductCardList.vue'
-import ProductCardAddFormVue from '~/components/ProductCardAddForm.vue'
-import ProductCardFilterVue from '~/components/ProductCardFilter.vue'
+import ProductCardVue from '~/components/ProductCardList.vue';
+import ProductCardAddFormVue from '~/components/ProductCardAddForm.vue';
+import ProductCardFilterVue from '~/components/ProductCardFilter.vue';
 
 export default {
   name: 'IndexPage',
@@ -27,7 +27,42 @@ export default {
     'product-card-add-form': ProductCardAddFormVue,
     'product-card-filter': ProductCardFilterVue,
   },
-}
+  data() {
+    return {
+      cards: [
+        {
+          id: Date.now() + Math.floor(Math.random() * 10),
+          title: 'Наименование товара 1',
+          description:
+            'Довольно-таки интересное описание товара в несколько строк 1',
+          link: `${require('~/assets/img/productCardImg.png')}`,
+          price: '10 000',
+        },
+        {
+          id: Date.now() + Math.floor(Math.random() * 10),
+          title: 'Наименование товара 2',
+          description:
+            'Довольно-таки интересное описание товара в несколько строк 2',
+          link: `${require('~/assets/img/productCardImg.png')}`,
+          price: '20 000',
+        },
+        {
+          id: Date.now() + Math.floor(Math.random() * 10),
+          title: 'Наименование товара 3',
+          description:
+            'Довольно-таки интересное описание товара в несколько строк 3',
+          link: `${require('~/assets/img/productCardImg.png')}`,
+          price: '30 000',
+        },
+      ],
+    };
+  },
+  methods: {
+    addNewCard(newCard) {
+      console.log(newCard);
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
