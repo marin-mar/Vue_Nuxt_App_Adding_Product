@@ -13,13 +13,13 @@
 </template>
 
 <script>
-import ProductCardVue from './ProductCard.vue'
+import ProductCardVue from './ProductCard.vue';
 export default {
   name: 'ProductCardList',
   components: {
     'product-card': ProductCardVue,
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

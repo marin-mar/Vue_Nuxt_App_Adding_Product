@@ -50,7 +50,7 @@ export default {
       default: '10 000',
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

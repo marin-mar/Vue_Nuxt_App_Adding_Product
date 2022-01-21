@@ -13,9 +13,9 @@ export default {
   data() {
     return {
       selected: 'all',
-    }
+    };
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

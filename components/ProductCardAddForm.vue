@@ -6,7 +6,6 @@
     action=""
     method="post"
     @submit.prevent="onSubmit"
-    @submit="checkForm"
   >
     <div class="add-form__block">
       <label for="title" class="add-form__label required"
@@ -19,6 +18,8 @@
         name="title"
         :class="['add-form__input', { invalid: errors.includes('title') }]"
         placeholder="Введите наименование товара"
+        @blur="checkInput('title')"
+        @keyup.enter="$event.target.blur()"
       />
       <span v-if="errors.includes('title')" class="add-form__warning"
         >Поле является обязательным</span
@@ -46,6 +47,8 @@
         name="link"
         :class="['add-form__input', { invalid: errors.includes('link') }]"
         placeholder="Введите ссылку"
+        @blur="checkInput('link')"
+        @keyup.enter="$event.target.blur()"
       />
       <span v-if="errors.includes('link')" class="add-form__warning"
         >Поле является обязательным</span
@@ -56,24 +59,30 @@
       <input
         id="price"
         v-model.number="card.price"
-        type="number"
+        v-model="formatPrice"
+        :type="indicatorChange ? 'number' : 'text'"
         name="price"
         :class="['add-form__input', { invalid: errors.includes('price') }]"
         placeholder="Введите цену"
+        @focus="indicatorChange = true"
+        @blur="checkInput('price'), (indicatorChange = false)"
+        @keyup.enter="$event.target.blur()"
       />
       <span v-if="errors.includes('price')" class="add-form__warning"
         >Поле является обязательным</span
       >
     </div>
     <button
+      tabindex="0"
       type="submit"
-      :class="['add-form__button', { success: checkIsEmptyCard() }]"
+      :class="['add-form__button', { success: isCardFull() }]"
+      @click="onSubmit()"
     >
       Добавить товар
     </button>
     <p v-if="errors.length">
       <b>Пожалуйста исправьте указанные ошибки</b>
-      <b>{{checkIsEmptyCard()}}</b>
+      <b>{{ errors }}</b>
     </p>
   </form>
 </template>
@@ -90,49 +99,62 @@ export default {
         price: '',
       },
       errors: [],
-    }
+      indicatorChange: false,
+    };
   },
-  watch: {},
-  methods: {
-    checkForm(e) {
-      e.preventDefault()
-      this.errors = []
-      if (this.card.title && this.card.link && this.card.price) {
-        return true
-      }
-      if (!this.card.title) {
-        this.errors.push('title')
-      }
-      if (!this.card.link) {
-        this.errors.push('link')
-      }
-      if (!this.card.price) {
-        this.errors.push('price')
-      }
-      return this.errors
+  computed: {
+    formatPrice: {
+      get() {
+        return this.indicatorChange
+          ? this.card.price
+          : this.card.price.toLocaleString();
+      },
+      set(value) {
+        this.card.price = +value.replace(/\s/g, '');
+        this.$emit('input', this.card.price);
+      },
     },
-    checkIsEmptyCard() {
-      for (const key in this.card) {
-        if (this.card[key] === null && this.card[key] === '') return true
+  },
+  methods: {
+    checkInput(field) {
+      if (this.card[field] && !this.errors.includes(field)) return true;
+      if (this.card[field] && this.errors.includes(field)) {
+        const index = this.errors.indexOf(field);
+        if (index > -1) {
+          this.errors.splice(index, 1);
+        }
       }
-      return false
+      if (!this.card[field] && !this.errors.includes(field)) {
+        this.errors.push(field);
+      }
+      return this.errors;
+    },
+    isCardFull() {
+      let state = true;
+      [this.card.title, this.card.link, this.card.price].forEach((field) => {
+        if (field === null || field === '') {
+          state = false;
+        }
+      });
+      return state;
     },
     onSubmit() {
-      // if (this.checkForm()) {
-      //     const newUser = {
-      //       id: this.users.length + 1,
-      //       first_name: this.first_name,
-      //       last_name: this.first_name,
-      //       email: this.email,
-      //     }
-      //     this.$emit('addUser', newUser)
-      //     this.first_name = ''
-      //     this.last_name = ''
-      //     this.email = ''
-      // }
+      // const newCard = {
+      //   id: this.card.length + 1,
+      //   title: this.card.title,
+      //   description: this.card.description,
+      //   link: this.card.link,
+      //   price: this.card.price,
+      // },
+      // this.$emit('addCard', newCard),
+      // this.card = {},
+      // this.card.title = '',
+      // this.card.description = '',
+      // this.card.link = '',
+      // this.card.price = '',
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
