@@ -1,7 +1,7 @@
 <template>
   <ul class="card-list">
     <li v-for="card in cards" :key="card.id" class="card-list__item">
-      <product-card :card="card"/>
+      <product-card :card="card" />
     </li>
   </ul>
 </template>
@@ -13,11 +13,9 @@ export default {
   components: {
     'product-card': ProductCardVue,
   },
-  props: {
-    cards: {
-      type: Array,
-      // required: true,
-      default: () => [],
+  computed: {
+    cards() {
+      return this.$store.state.cards;
     },
   },
 };

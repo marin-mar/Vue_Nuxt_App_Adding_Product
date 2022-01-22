@@ -76,13 +76,12 @@
       tabindex="0"
       type="submit"
       :class="['add-form__button', { success: isCardFull() }]"
-      @click="onSubmit()"
+      @click="addNewCard()"
     >
       Добавить товар
     </button>
-    <p v-if="errors.length">
-      <b>Пожалуйста исправьте указанные ошибки</b>
-      <b>{{ errors }}</b>
+    <p v-if="isAddingSuccessful" class="add-form__success">
+      <b>Товар добавлен</b>
     </p>
   </form>
 </template>
@@ -100,6 +99,7 @@ export default {
       },
       errors: [],
       indicatorChange: false,
+      isAddingSuccessful: false,
     };
   },
   computed: {
@@ -138,7 +138,10 @@ export default {
       });
       return state;
     },
-    onSubmit() {
+    onSubmit(e) {
+      e.preventDefault();
+    },
+    addNewCard() {
       const newCard = {
         id: Date.now(),
         title: this.card.title,
@@ -147,10 +150,13 @@ export default {
         price: this.card.price,
       };
       this.$emit('addNewCard', newCard);
+      this.$store.commit('SET_CARD', newCard);
+      this.isAddingSuccessful = true;
       this.card.title = '';
       this.card.description = '';
       this.card.link = '';
       this.card.price = '';
+      setTimeout(!this.isAddingSuccessful, 5000);
     },
   },
 };
@@ -158,6 +164,7 @@ export default {
 
 <style lang="scss" scoped>
 .add-form {
+  position: fixed;
   width: 20.75rem;
   min-height: 27.5rem;
   background: $app_bg;
@@ -257,6 +264,9 @@ export default {
         transform: scale(0.9);
       }
     }
+  }
+  &__success {
+    color: $success_bg;
   }
 }
 </style>

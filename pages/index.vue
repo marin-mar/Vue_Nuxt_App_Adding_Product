@@ -1,16 +1,16 @@
 <template>
   <div class="app">
     <div class="app__header">
-      <h1 class="greeting">Добавление товара</h1>
+      <h1 class="app__title">Добавление товара</h1>
     </div>
     <div class="app__filter">
       <product-card-filter />
     </div>
     <div class="app__form">
-      <product-card-add-form @addNewCard='addNewCard'/>
+      <product-card-add-form />
     </div>
     <div class="app__list">
-      <product-card-list :cards="cards" />
+      <product-card-list />
     </div>
   </div>
 </template>
@@ -28,39 +28,7 @@ export default {
     'product-card-filter': ProductCardFilterVue,
   },
   data() {
-    return {
-      cards: [
-        {
-          id: Date.now() + Math.floor(Math.random() * 10),
-          title: 'Наименование товара 1',
-          description:
-            'Довольно-таки интересное описание товара в несколько строк 1',
-          link: `${require('~/assets/img/productCardImg.png')}`,
-          price: '10 000',
-        },
-        {
-          id: Date.now() + Math.floor(Math.random() * 10),
-          title: 'Наименование товара 2',
-          description:
-            'Довольно-таки интересное описание товара в несколько строк 2',
-          link: `${require('~/assets/img/productCardImg.png')}`,
-          price: '20 000',
-        },
-        {
-          id: Date.now() + Math.floor(Math.random() * 10),
-          title: 'Наименование товара 3',
-          description:
-            'Довольно-таки интересное описание товара в несколько строк 3',
-          link: `${require('~/assets/img/productCardImg.png')}`,
-          price: '30 000',
-        },
-      ],
-    };
-  },
-  methods: {
-    addNewCard(newCard) {
-      console.log(newCard);
-    },
+    return {};
   },
 };
 </script>
@@ -86,9 +54,13 @@ export default {
   }
   &__form {
     grid-area: form;
+    width: 20.75rem;
   }
   &__list {
     grid-area: list;
+  }
+  &__title {
+    position: fixed;
   }
 }
 </style>

@@ -1,16 +1,26 @@
 <template>
-  <div class="card" tabindex="0">
-    <img class="card__img" :src="`${card.link}`" alt="ProductCardImg" />
+  <div class="card" tabindex="0" @keyup.delete="deleteCard()">
+    <img
+      class="card__img"
+      :src="
+        card.link === 'productCardImg.png'
+          ? `${require('~/assets/img/productCardImg.png')}`
+          : card.link
+      "
+      alt="ProductCardImg"
+      width="332"
+      height="200"
+    />
     <div class="card__body">
       <h3 class="card__title">{{ card.title }}</h3>
       <p class="card__description">
         {{ card.description }}
       </p>
       <p class="card__price">
-        <span class="card__sum">{{ card.price }}</span> руб.
+        <span class="card__sum">{{ card.price.toLocaleString() }}</span> руб.
       </p>
     </div>
-    <button class="card__delete" :tabindex="2">
+    <button class="card__delete" :tabindex="0" @click="deleteCard()">
       <img
         class="card__delete-img"
         src="~/assets/img/deleteImg.svg"
@@ -26,10 +36,16 @@ export default {
   props: {
     card: {
       type: Object,
-      // required: true,
+      required: true,
       default: () => {},
     },
   },
+  methods: {
+    deleteCard() {
+      this.$emit('deleteCard', this.card);
+      this.$store.commit('REMOVE_CARD', this.card);
+    }
+  }
 };
 </script>
 
@@ -107,6 +123,7 @@ export default {
     &:hover,
     &:active,
     &:focus {
+      visibility: visible;
       transform: scale(0.9);
     }
   }
