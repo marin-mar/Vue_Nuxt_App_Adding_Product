@@ -151,12 +151,15 @@ export default {
       };
       this.$emit('addNewCard', newCard);
       this.$store.commit('SET_CARD', newCard);
+      if (process.client) {
+        localStorage.setItem(`cards-${newCard.id}`, JSON.stringify(newCard));
+      }
       this.isAddingSuccessful = true;
       this.card.title = '';
       this.card.description = '';
       this.card.link = '';
       this.card.price = '';
-      setTimeout(!this.isAddingSuccessful, 5000);
+      setTimeout(!this.isAddingSuccessful, 2000);
     },
   },
 };

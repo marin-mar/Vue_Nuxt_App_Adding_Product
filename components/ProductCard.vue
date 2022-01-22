@@ -44,8 +44,11 @@ export default {
     deleteCard() {
       this.$emit('deleteCard', this.card);
       this.$store.commit('REMOVE_CARD', this.card);
-    }
-  }
+      if (process.client) {
+        localStorage.removeItem(`cards-${this.card.id}`);
+      }
+    },
+  },
 };
 </script>
 

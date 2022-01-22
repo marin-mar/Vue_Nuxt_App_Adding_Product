@@ -27,9 +27,6 @@ export default {
     'product-card-add-form': ProductCardAddFormVue,
     'product-card-filter': ProductCardFilterVue,
   },
-  data() {
-    return {};
-  },
 };
 </script>
 
