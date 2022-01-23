@@ -151,9 +151,9 @@ export default {
       };
       this.$emit('addNewCard', newCard);
       this.$store.commit('SET_CARD', newCard);
-      if (process.client) {
-        localStorage.setItem(`cards-${newCard.id}`, JSON.stringify(newCard));
-      }
+      // if (process.client) {
+      //   localStorage.setItem(`cards-${newCard.id}`, JSON.stringify(newCard));
+      // }
       this.isAddingSuccessful = true;
       this.card.title = '';
       this.card.description = '';

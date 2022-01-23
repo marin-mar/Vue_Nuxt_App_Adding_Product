@@ -19,21 +19,21 @@ export default {
     },
   },
   created() {
-    if (process.client) {
-      if (localStorage.length > 0) {
-        const cards = {};
-        for (const key of Object.keys(localStorage)) {
-          if (key.match(/[^cards-]/gi)) {
-            cards[key] = JSON.parse(localStorage.getItem(key));
-          }
-        }
-        this.$store.commit('SET_CARDS', cards);
-      } else {
-        this.$store.state.cards.map((card) =>
-          localStorage.setItem(`cards-${card.id}`, JSON.stringify(card))
-        );
-      }
-    }
+    // if (process.client) {
+    //   if (localStorage.length > 0) {
+    //     const cards = {};
+    //     for (const key of Object.keys(localStorage)) {
+    //       if (key.match(/[^cards-]/gi)) {
+    //         cards[key] = JSON.parse(localStorage.getItem(key));
+    //       }
+    //     }
+    //     this.$store.commit('SET_CARDS', cards);
+    //   } else {
+    //     this.$store.state.cards.map((card) =>
+    //       localStorage.setItem(`cards-${card.id}`, JSON.stringify(card))
+    //     );
+    //   }
+    // }
   },
 };
 </script>

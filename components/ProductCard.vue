@@ -17,7 +17,7 @@
         {{ card.description }}
       </p>
       <p class="card__price">
-        <span class="card__sum">{{ card.price.toLocaleString() }}</span> руб.
+        <span class="card__sum">{{ Number(card.price).toLocaleString() }}</span> руб.
       </p>
     </div>
     <button class="card__delete" :tabindex="0" @click="deleteCard()">
@@ -44,9 +44,9 @@ export default {
     deleteCard() {
       this.$emit('deleteCard', this.card);
       this.$store.commit('REMOVE_CARD', this.card);
-      if (process.client) {
-        localStorage.removeItem(`cards-${this.card.id}`);
-      }
+      // if (process.client) {
+      //   localStorage.removeItem(`cards-${this.card.id}`);
+      // }
     },
   },
 };

@@ -1,5 +1,11 @@
 <template>
-  <select id="filter" v-model="selected" name="filter" class="filter">
+  <select
+    id="filter"
+    v-model="selected"
+    name="filter"
+    class="filter"
+    @change="setValueForSorting()"
+  >
     <option class="filter__option" value="all" selected>По умолчанию</option>
     <option class="filter__option" value="min">По цене от min к max</option>
     <option class="filter__option" value="max">По цене от max к min</option>
@@ -14,6 +20,26 @@ export default {
     return {
       selected: 'all',
     };
+  },
+  methods: {
+    setValueForSorting() {
+      switch (this.selected) {
+        case 'min':
+          this.$store.commit('SORT_BY_MIN', this.$store.state.cards);
+          break;
+        case 'max':
+          this.$store.commit('SORT_BY_MAX', this.$store.state.cards);
+          break;
+        case 'title':
+          this.$store.commit('SORT_BY_TITLE', this.$store.state.cards);
+          break;
+        case 'all':
+          this.$store.commit('SORT_BY_DEFAULT', this.$store.state.cards);
+          break;
+        default:
+          break;
+      }
+    },
   },
 };
 </script>
