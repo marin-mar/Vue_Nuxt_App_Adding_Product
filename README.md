@@ -1,4 +1,4 @@
-# idaproject_test
+# Vue_Nuxt_App_Adding_Product
 
 ## Build Setup
 

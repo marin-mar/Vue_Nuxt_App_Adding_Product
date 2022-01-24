@@ -4,7 +4,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'idaproject_test',
+    title: 'Vue_Nuxt_App_Adding_Product',
     htmlAttrs: {
       lang: 'ru',
     },
@@ -14,7 +14,7 @@ export default {
       {
         hid: 'description',
         name: 'description',
-        content: 'idaproject, frontend, test, adding a product, Vue, Nuxt',
+        content: 'frontend, test, adding a product, Vue, Nuxt',
       },
       { name: 'format-detection', content: 'telephone=no' },
       { name: 'msapplication-TileColor', content: '#da532c' },
@@ -91,4 +91,6 @@ export default {
     color: '#7BAE73',
     background: '#fffefb',
   },
+
+  mode: 'spa',
 };

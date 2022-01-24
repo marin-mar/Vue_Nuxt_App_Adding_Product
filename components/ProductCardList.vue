@@ -56,6 +56,7 @@ export default {
   flex-wrap: wrap;
   gap: 1rem;
   list-style: none;
+  z-index: 2;
   &-enter-active,
   &-leave-active {
     transition: all 1s;
