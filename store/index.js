@@ -1,5 +1,6 @@
 export const state = () => ({
   cards: [],
+  isLoading: false,
 });
 
 export const mutations = {
@@ -26,7 +27,10 @@ export const mutations = {
     });
   },
   SORT_BY_DEFAULT(state, cards) {
-    state.cards = cards.sort((a, b) => Number(a.id) - Number(b.id));
+    state.cards = cards.sort((a, b) => Number(b.id) - Number(a.id));
+  },
+  SHOW_SPINNER(state, isLoading) {
+    state.isLoading = isLoading;
   },
 };
 
@@ -36,14 +40,13 @@ export const actions = {
     return this.$axios
       .$get('http://localhost:3001/cards')
       .then((response) => {
+        commit('SHOW_SPINNER', true);
         commit('SET_CARDS', response);
       })
+      .then(commit('SHOW_SPINNER', false))
       .catch((error) => {
         console.log(error);
+        commit('SHOW_SPINNER', true);
       });
   },
 };
-
-// .$get(
-//   'https://raw.githubusercontent.com/marin-mar/idaproject_test/main/data.json?token=GHSAT0AAAAAABPJ4HDCC26KJJA7URPNTQ4CYPNFWRA'
-// )

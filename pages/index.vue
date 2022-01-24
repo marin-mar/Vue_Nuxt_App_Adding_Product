@@ -10,6 +10,7 @@
       <product-card-add-form />
     </div>
     <div class="app__list">
+      <spinner-preloader v-if="isLoading() === true" />
       <product-card-list />
     </div>
   </div>
@@ -19,6 +20,7 @@
 import ProductCardVue from '~/components/ProductCardList.vue';
 import ProductCardAddFormVue from '~/components/ProductCardAddForm.vue';
 import ProductCardFilterVue from '~/components/ProductCardFilter.vue';
+import SpinnerVue from '~/components/Spinner.vue';
 
 export default {
   name: 'IndexPage',
@@ -26,6 +28,12 @@ export default {
     'product-card-list': ProductCardVue,
     'product-card-add-form': ProductCardAddFormVue,
     'product-card-filter': ProductCardFilterVue,
+    'spinner-preloader': SpinnerVue,
+  },
+  methods: {
+    isLoading() {
+      return this.$store.state.isLoading;
+    },
   },
 };
 </script>
@@ -55,6 +63,7 @@ export default {
   }
   &__list {
     grid-area: list;
+    position: relative;
   }
   &__title {
     position: fixed;

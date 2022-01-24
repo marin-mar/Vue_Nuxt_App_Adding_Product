@@ -80,4 +80,15 @@ export default {
       scss: './assets/styles/*.scss',
     },
   },
+
+  loading: {
+    color: '#7BAE73',
+    height: '0.5rem',
+  },
+
+  loadingIndicator: {
+    name: 'circle',
+    color: '#7BAE73',
+    background: '#fffefb',
+  },
 };
