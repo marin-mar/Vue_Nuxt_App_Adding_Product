@@ -127,6 +127,11 @@ export default {
       animation-name: slideOutUp;
       animation-duration: 1s;
       animation-fill-mode: both;
+      & .add-form {
+        animation-name: fadeOut;
+        animation-duration: 1s;
+        animation-fill-mode: both;
+      }
     }
   }
   &__list {
@@ -205,6 +210,18 @@ export default {
     width: 0;
     height: 0;
     transform: translateY(-100%);
+  }
+}
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    width: 100%;
+    height: 100%;
+  }
+  100% {
+    opacity: 0;
+    width: 0;
+    height: 0;
   }
 }
 </style>
