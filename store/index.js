@@ -37,16 +37,21 @@ export const mutations = {
 // get cards from API
 export const actions = {
   nuxtServerInit({ commit }) {
-    return this.$axios
-      .$get('http://localhost:3001/cards')
-      .then((response) => {
-        commit('SHOW_SPINNER', true);
-        commit('SET_CARDS', response);
-      })
-      .then(commit('SHOW_SPINNER', false))
-      .catch((error) => {
-        console.log(error);
-        commit('SHOW_SPINNER', true);
-      });
+    return (
+      this.$axios
+        // .$get('http://localhost:3001/cards')
+        .$get(
+          'https://raw.githubusercontent.com/marin-mar/Vue_Nuxt_App_Adding_Product/main/data.json'
+        )
+        .then((response) => {
+          commit('SHOW_SPINNER', true);
+          commit('SET_CARDS', response);
+        })
+        .then(commit('SHOW_SPINNER', false))
+        .catch((error) => {
+          console.log(error);
+          commit('SHOW_SPINNER', true);
+        })
+    );
   },
 };
