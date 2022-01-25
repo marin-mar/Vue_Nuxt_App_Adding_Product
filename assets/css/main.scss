@@ -3,6 +3,7 @@ body {
   // font-family: 'Inter', sans-serif;
   color: $app_color;
   background-color: transparentize($app_bg, 0.2);
+  overflow-y: hidden;
 }
 
 * {
