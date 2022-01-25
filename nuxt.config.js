@@ -1,6 +1,11 @@
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
+  // mode: 'spa',
+  ssr: false,
+  router: {
+    base: '/Vue_Nuxt_App_Adding_Product/',
+  },
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -81,16 +86,14 @@ export default {
     },
   },
 
-  loading: {
-    color: '#7BAE73',
-    height: '0.5rem',
-  },
+  // loading: {
+  //   color: '#7BAE73',
+  //   height: '0.5rem',
+  // },
 
-  loadingIndicator: {
-    name: 'circle',
-    color: '#7BAE73',
-    background: '#fffefb',
-  },
-
-  mode: 'spa',
+  // loadingIndicator: {
+  //   name: 'circle',
+  //   color: '#7BAE73',
+  //   background: '#fffefb',
+  // },
 };
